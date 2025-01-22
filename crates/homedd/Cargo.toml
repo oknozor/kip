@@ -1,0 +1,15 @@
+[package]
+name = "homedd"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+serde_json.workspace = true
+homed-agenda.workspace = true
+homed-gh.workspace = true
+homed-storage.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+notify-rust.workspace = true
+tracing-subscriber.workspace = true
+dirs.workspace = true

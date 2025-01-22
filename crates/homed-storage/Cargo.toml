@@ -1,0 +1,12 @@
+[package]
+name = "homed-storage"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+redb.workspace = true
+once_cell.workspace = true
+tracing.workspace = true
+dirs.workspace = true

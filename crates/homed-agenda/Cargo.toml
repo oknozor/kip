@@ -1,0 +1,16 @@
+[package]
+name = "homed-agenda"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+dotenv.workspace = true
+chrono.workspace = true
+tokio.workspace = true
+anyhow.workspace = true
+url.workspace = true
+tracing.workspace = true
+serde.workspace = true
+colored.workspace = true
+minicaldav = { version = "*", features = ["serde"] }
+ureq = "2.12.1"
