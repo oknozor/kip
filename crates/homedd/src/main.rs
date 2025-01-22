@@ -73,7 +73,7 @@ async fn fetch_and_store_github_data(client: &GhClient, db: &Database) {
             let menu = db.get_by_key::<GitHubIssueMenu>(MENU_COLLECTION, "github_issues");
             match menu {
                 Some(old_issues) => {
-                    if &old_issues != &new_issues {
+                    if old_issues != new_issues {
                         match db.insert(MENU_COLLECTION, &new_issues) {
                             Err(e) => {
                                 error!("Failed to store issues: {}", e);
@@ -107,7 +107,7 @@ async fn fetch_and_store_github_data(client: &GhClient, db: &Database) {
             info!("Successfully fetched PRs");
             match db.get_by_key::<GitHubPrMenu>(MENU_COLLECTION, "github_prs") {
                 Some(old_prs) => {
-                    if &old_prs != &new_prs {
+                    if old_prs != new_prs {
                         match db.insert(MENU_COLLECTION, &new_prs) {
                             Err(e) => {
                                 error!("Failed to store PRs: {}", e);
