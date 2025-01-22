@@ -2,7 +2,7 @@ use once_cell::sync::Lazy;
 use std::borrow::Cow;
 use std::fmt::Debug;
 use std::sync::Arc;
-use tracing::{debug, trace};
+use tracing::{debug, info, trace};
 
 use redb::{ReadableTable, TableDefinition};
 use serde::de::DeserializeOwned;
@@ -18,12 +18,15 @@ pub struct Database {
 
 impl Default for Database {
     fn default() -> Self {
-        let path = dirs::data_dir().expect("Cannot open data dir");
+        let path = dirs::runtime_dir()
+            .expect("Cannot open local data dir")
+            .join("homedd");
 
-        let path = path.join("homed-db");
+        std::fs::create_dir_all(&path).expect("Failed to create database directory");
+        let path = path.join("db");
         let path = path.as_path();
 
-        debug!("Opening database {:?}", path);
+        info!("Opening database {:?}", path);
 
         let database = match redb::Database::open(path) {
             Ok(db) => db,

@@ -1,3 +1,4 @@
+use config::Settings;
 use homed_gh::GhClient;
 use homed_storage::menu::{GitHubIssueMenu, GitHubPrMenu};
 use homed_storage::{Database, DB};
@@ -10,14 +11,16 @@ use tracing::{error, info};
 const MENU_COLLECTION: &str = "github";
 const FETCH_INTERVAL_SECS: u64 = 300;
 
+mod config;
 mod socket;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
+    let settings = Settings::new()?;
     tracing_subscriber::fmt::init();
     info!("Starting homedd...");
 
-    let gh_client = match GhClient::new() {
+    let gh_client = match GhClient::new(&settings.github.token) {
         Ok(client) => client,
         Err(e) => {
             error!("Failed to initialize GitHub client: {}", e);

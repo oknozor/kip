@@ -14,3 +14,4 @@ serde.workspace = true
 colored.workspace = true
 minicaldav = { version = "*", features = ["serde"] }
 ureq = "2.12.1"
+serde_json.workspace = true

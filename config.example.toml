@@ -1,0 +1,11 @@
+[github]
+token = "your personal access token"
+
+[caldav]
+calendar_url = "https://your-nextcloud-instance/remote.php/dav/calendars/username/calendar-name"
+username = "your-username"
+password = "your-password"
+
+[daemon]
+socket_path = "/run/user/1000/homedd.sock"
+fetch_interval = 300

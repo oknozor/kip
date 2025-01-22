@@ -8,9 +8,7 @@ pub struct GhClient {
 }
 
 impl GhClient {
-    pub fn new() -> Result<GhClient, Box<dyn Error>> {
-        dotenv::dotenv().ok();
-        let token = std::env::var("GITHUB_TOKEN").expect("GITHUB_TOKEN env variable is required");
+    pub fn new(token: &str) -> Result<GhClient, Box<dyn Error>> {
         let octocrab = Octocrab::builder().personal_token(token).build()?;
 
         Ok(GhClient { client: octocrab })
@@ -88,14 +86,20 @@ mod tests {
 
     #[tokio::test]
     async fn test_get_issues() {
-        let client = GhClient::new().unwrap();
+        dotenv::dotenv().ok();
+        let token =
+            std::env::var("HOMEDD_GITHUB_TOKEN").expect("GITHUB_TOKEN env variable is required");
+        let client = GhClient::new(&token).unwrap();
         let menu = client.get_issue_menu().await.unwrap();
         println!("{menu:?}");
     }
 
     #[tokio::test]
     async fn test_get_pr() {
-        let client = GhClient::new().unwrap();
+        dotenv::dotenv().ok();
+        let token =
+            std::env::var("HOMEDD_GITHUB_TOKEN").expect("GITHUB_TOKEN env variable is required");
+        let client = GhClient::new(&token).unwrap();
         let menu = client.get_issue_menu().await.unwrap();
         println!("{menu:#?}");
     }
