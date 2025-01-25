@@ -1,6 +1,6 @@
 # Kip - Your Personal Dashboard CLI
 
-Kip is a modular command-line dashboard that aggregates and displays information from various sources like GitHub issues, calendars, and more. It consists of a daemon (kipd) that collects data in the background and a CLI (kip) to query this information.
+Kip is a modular command-line dashboard that aggregates and displays information from various sources like GitHub issues, calendars, and more. It consists of a daemon (kipd) that collects data in the background and a CLI (kip) to query this information. All data fetched by plugins is stored locally in a fast embedded database, ensuring instantaneous access to your information without network latency.
 
 ## Features
 
@@ -9,7 +9,7 @@ Kip is a modular command-line dashboard that aggregates and displays information
 - 🔔 Desktop notifications for new items
 - 🔌 Pluggable architecture for easy extension
 - 🚀 Fast and lightweight
-- 💾 Local caching of plugin data
+- 💾 Zero-latency local data access
 
 ## Installation
 
