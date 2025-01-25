@@ -1,8 +1,9 @@
 [package]
-name = "homed-cli"
+name = "kip"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
 tokio.workspace = true
 dirs.workspace = true
+clap.workspace = true

@@ -3,9 +3,10 @@ members = ["crates/*"]
 resolver = "2"
 
 [workspace.dependencies]
-homed-agenda = { path = "crates/homed-agenda" }
-homed-gh = { path = "crates/homed-gh" }
-homed-storage = { path = "crates/homed-storage" }
+kip-agenda = { path = "crates/kip-agenda" }
+kip-gh = { path = "crates/kip-gh" }
+kip-storage = { path = "crates/kip-storage" }
+kip-plugin = { path = "crates/kip-plugin" }
 octocrab = "0.43.0"
 tokio = { version = "1.43.0", features = ["full"] }
 serde = { version = "1.0", features = ["derive"] }
@@ -24,3 +25,5 @@ url = "2.4"
 colored = "2.0"
 config = "0.13"
 shellexpand = "3.1.0"
+thiserror = "2.0.11"
+clap = { version = "4.4.18", features = ["derive"] }

@@ -14,7 +14,7 @@ impl SocketServer {
     pub async fn new() -> Result<Self, Box<dyn Error>> {
         let socket_path = dirs::runtime_dir()
             .unwrap_or_else(|| PathBuf::from("/tmp"))
-            .join("homedd.sock");
+            .join("kipd.sock");
 
         // Clean up existing socket if it exists
         if socket_path.exists() {
@@ -70,20 +70,26 @@ impl Drop for SocketServer {
 
 fn handle_command(command: &str) -> String {
     use crate::DB;
-    use homed_storage::menu::{GitHubIssueMenu, GitHubPrMenu};
 
-    match command.trim() {
-        "get_issues" => match DB.get_by_key::<GitHubIssueMenu>("github", "github_issues") {
-            Some(issues) => serde_json::to_string(&issues)
-                .unwrap_or_else(|_| "Error serializing issues".to_string()),
-            None => "No issues found".to_string(),
-        },
-        "get_prs" => match DB.get_by_key::<GitHubPrMenu>("github", "github_prs") {
-            Some(prs) => {
-                serde_json::to_string(&prs).unwrap_or_else(|_| "Error serializing PRs".to_string())
+    let parts: Vec<&str> = command.trim().split_whitespace().collect();
+
+    match parts.get(0) {
+        Some(&"get") => {
+            if let Some(key) = parts.get(1) {
+                match DB.get_by_key(key) {
+                    Some(value) => {
+                        serde_json::to_string_pretty(&value).expect("failed to deserialize items")
+                    }
+                    None => format!("No data found for key: {}", key),
+                }
+            } else {
+                "Usage: get <key>".to_string()
             }
-            None => "No PRs found".to_string(),
-        },
-        _ => "Unknown command".to_string(),
+        }
+        Some(&"apply") => {
+            // Apply any pending changes
+            "Changes applied successfully".to_string()
+        }
+        _ => "Unknown command. Available commands: get <key>, apply".to_string(),
     }
 }

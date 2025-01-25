@@ -1,13 +1,12 @@
 [package]
-name = "homedd"
+name = "kipd"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
 serde_json.workspace = true
-homed-agenda.workspace = true
-homed-gh.workspace = true
-homed-storage.workspace = true
+kip-storage.workspace = true
+kip-plugin.workspace = true
 tokio.workspace = true
 tracing.workspace = true
 notify-rust.workspace = true

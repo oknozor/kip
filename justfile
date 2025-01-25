@@ -7,68 +7,70 @@ build:
 
 # Install the binaries to ~/.local/bin
 install: build
-    cargo install --path crates/homedd --force
-    cargo install --path crates/homed-cli --force
+    cargo install --path crates/kipd --force
+    cargo install --path crates/kip --force
+    cargo install --path crates/kip-gh --force
+    cargo install --path crates/kip-agenda --force
 
 # Create configuration directory and copy example config
 setup-config:
     #!/usr/bin/env bash
-    mkdir -p ~/.local/share/homedd
-    mkdir -p ~/.config/homedd
+    mkdir -p ~/.local/share/kipd
+    mkdir -p ~/.config/kipd
 
-    if [ ! -f ~/.config/homedd/config.toml ]; then
-        cp config.example.toml ~/.config/homedd/config.toml
-        echo "Created config.toml from template. Please edit ~/.config/homedd/config.toml with your credentials"
+    if [ ! -f ~/.config/kipd/config.toml ]; then
+        cp config.example.toml ~/.config/kipd/config.toml
+        echo "Created config.toml from template. Please edit ~/.config/kipd/config.toml with your credentials"
     fi
 
 # Install systemd user unit
 setup-systemd:
     #!/usr/bin/env bash
     mkdir -p ~/.config/systemd/user
-    cp homedd.service ~/.config/systemd/user/
+    cp kipd.service ~/.config/systemd/user/
     systemctl --user daemon-reload
-    echo "Systemd user unit installed. Enable with: systemctl --user enable --now homedd"
+    echo "Systemd user unit installed. Enable with: systemctl --user enable --now kipd"
 
 # Complete installation
 install-all: build install setup-config setup-systemd
     #!/usr/bin/env bash
     echo "Installation complete!"
     echo "Next steps:"
-    echo "1. Edit ~/.config/homedd/config.toml with your credentials"
-    echo "2. Start the service: systemctl --user enable --now homedd"
-    echo "3. Check status: systemctl --user status homedd"
-    echo "4. View logs: journalctl --user -u homedd -f"
+    echo "1. Edit ~/.config/kipd/config.toml with your credentials"
+    echo "2. Start the service: systemctl --user enable --now kipd"
+    echo "3. Check status: systemctl --user status kipd"
+    echo "4. View logs: journalctl --user -u kipd -f"
 
 # Check service status
 status:
-    systemctl --user status homedd
+    systemctl --user status kipd
 
 # View service logs
 logs:
-    journalctl --user -u homedd -f
+    journalctl --user -u kipd -f
 
 # Stop the service
 stop:
-    systemctl --user stop homedd
+    systemctl --user stop kipd
 
 # Start the service
 start:
-    systemctl --user start homedd
+    systemctl --user start kipd
 
 # Restart the service
 restart:
-    systemctl --user restart homedd
+    systemctl --user restart kipd
 
-# Uninstall homedd
+# Uninstall kipd
 uninstall:
     #!/usr/bin/env bash
-    systemctl --user stop homedd || true
-    systemctl --user disable homedd || true
-    rm ~/.config/systemd/user/homedd.service || true
-    cargo uninstall homedd || true
-    cargo uninstall homed-cli || true
+    systemctl --user stop kipd || true
+    systemctl --user disable kipd || true
+    rm ~/.config/systemd/user/kipd.service || true
+    cargo uninstall kipd || true
+    cargo uninstall kip || true
     systemctl --user daemon-reload
-    echo "Uninstall complete. Configuration at ~/.config/homedd remains."
+    echo "Uninstall complete. Configuration at ~/.config/kipd remains."
 
 # Clean all build artifacts
 clean:

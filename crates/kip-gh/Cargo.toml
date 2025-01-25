@@ -1,0 +1,15 @@
+[package]
+name = "kip-gh"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+kip-storage.workspace = true
+octocrab.workspace = true
+tokio.workspace = true
+anyhow.workspace = true
+serde_json.workspace = true
+clap.workspace = true
+
+[dev-dependencies]
+dotenv.workspace = true

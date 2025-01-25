@@ -7,5 +7,5 @@ username = "your-username"
 password = "your-password"
 
 [daemon]
-socket_path = "/run/user/1000/homedd.sock"
+socket_path = "/run/user/1000/kipd.sock"
 fetch_interval = 300
